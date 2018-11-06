@@ -9,8 +9,9 @@ class ContributeForm extends Component{
 
     state ={
         value: '',
-        errorMessage: '',
-        loading: false
+        loading:false,
+        errorMessage: ''
+        
     };
 
 
@@ -34,7 +35,7 @@ class ContributeForm extends Component{
             this.setState({errorMessage: err.message});
         }
 
-        this.setState({ loading: false, value: ''})
+        this.setState({loading: false, value: ''})
     };
 
     render(){
@@ -50,7 +51,7 @@ class ContributeForm extends Component{
                     labelPosition = "right"
                 />
                 <Message error header ="Oops" content ={this.state.errorMessage} />
-                <Button primary loading >Contribute!</Button>
+                <Button primary loading={this.state.loading} >Contribute!</Button>
             </Form.Field>
             </Form>
 
