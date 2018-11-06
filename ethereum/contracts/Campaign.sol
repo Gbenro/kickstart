@@ -88,17 +88,17 @@ contract Campaign{
     }
 
     function getSummary() public view returns (
-      uint, uint, uint, uint, address
+        uint, uint, uint, uint, address
       ){
 
         return (
 
-          minContribution,
-          this.balance,
-          requests.length,
-          approversCount,
-          manager
-          );
+            minContribution,
+            this.balance,
+            requests.length,
+            approversCount,
+            manager
+        );
     }
 
 
