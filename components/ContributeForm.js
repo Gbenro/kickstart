@@ -44,13 +44,16 @@ class ContributeForm extends Component{
             <Form onSubmit ={this.onSubmit}  error={!!this.state.errorMessage}>
             <Form.Field>
                 <label> Amount to Contribute</label>
+                
                 <Input 
                     value={this.state.value}
                     onChange={event => this.setState({value:event.target.value})}
                     label = "ether"
                     labelPosition = "right"
                 />
+                <br />
                 <Message error header ="Oops" content ={this.state.errorMessage} />
+                <br/>
                 <Button primary loading={this.state.loading} >Contribute!</Button>
             </Form.Field>
             </Form>
