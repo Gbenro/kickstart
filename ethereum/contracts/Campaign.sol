@@ -38,16 +38,18 @@ contract Campaign{
         uint approvalCount;
         mapping (address => bool) approvals;// people that approves the Request
     }
-
+    Request[] public requests;
     address public manager;
     uint public minContribution;
     mapping(address => bool) public approvers;
-    Request[] public requests;
     uint public approversCount;
 
     ///@notice to restict access to only address that is manager of campaign
     modifier restricted(){
-        require(msg.sender == manager);
+        require( 
+            msg.sender == manager,
+            "Sender not authorized."
+        );
         _;
 
     }
@@ -63,8 +65,13 @@ contract Campaign{
 
     ///@notice payable funtion, contribute ether to the campaign
     function contribute() public payable{
-        require(msg.value > minContribution);// msg.value is the amount in wei
-        approvers[msg.sender] = true;//adds a new key of the address and gives ita mapping of true
+        // msg.value is the amount in wei
+        require(
+            msg.value > minContribution,
+            "amount Less than minimum contribution"
+            );
+
+        approvers[msg.sender] = true;//adds a new key of the address and gives it a mapping of true
         approversCount++;
     }
 
@@ -90,8 +97,16 @@ contract Campaign{
     ///@param index the index of request in the array of request for a campaign
     function approveRequest (uint index) public{
         Request storage request = requests[index];
-        require(approvers[msg.sender]);// checking if he/she is a contributor
-        require(!request.approvals[msg.sender]);// if they havent voted on this before
+        // checking if he/she is a contributor
+        require(
+            approvers[msg.sender],
+            "Address not a contributor"
+            );
+            // if they havent voted on this before
+        require(
+            !request.approvals[msg.sender],
+            "Address havent voted on this request yet"
+            );
 
         request.approvals[msg.sender] = true;
         request.approvalCount++;
@@ -103,8 +118,14 @@ contract Campaign{
     ///@param index the index of request in the array of request for a campaign
     function finalizeRequest(uint index) public restricted{
         Request storage request = requests[index];// must point to the request in the storage
-        require(!request.complete);
-        require(request.approvalCount > (approversCount/2));
+        require(
+            !request.complete,
+            "Request is Already Finalized"
+            );
+        require(
+            request.approvalCount > (approversCount/2),
+            "Need more than 50% of approvers to Finalize Request"
+            );
 
         request.recipient.transfer(request.value);
         request.complete = true;
@@ -129,7 +150,7 @@ contract Campaign{
         );
     }
 
-    ///@notice gets th number of request made by manager to the campaign
+    ///@notice gets the number of request made by manager to the campaign
     ///@return the amount of request for a campaign
     function getRequestsCount() public view returns (uint){
 
