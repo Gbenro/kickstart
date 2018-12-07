@@ -755,7 +755,11 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
+<<<<<<< HEAD
 /******/ 		script.src = __webpack_require__.p + "" + ({"0":"main.js","1":"bundles\\pages\\_error.js","3":"bundles\\pages\\index.js","4":"bundles\\pages\\campaigns\\show.js","5":"bundles\\pages\\campaigns\\new.js"}[chunkId]||chunkId) + "-" + {"0":"e8a7490df19a875e5dbb","1":"cb143352083992e4723a","3":"def3882d224c4ae30314","4":"8ca2b1b8db501834b522","5":"b1620333739a53c30822"}[chunkId] + ".js";
+=======
+/******/ 		script.src = __webpack_require__.p + "" + ({"0":"main.js","1":"bundles\\pages\\_error.js","3":"bundles\\pages\\index.js"}[chunkId]||chunkId) + "-" + {"0":"e8a7490df19a875e5dbb","1":"cb143352083992e4723a","3":"27e9b3017b140832d693"}[chunkId] + ".js";
+>>>>>>> master
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
